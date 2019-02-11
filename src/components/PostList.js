@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import Post from './Post';
 
 class PostList extends Component { 
     render() {
         return (
             <div>
-                PostList
+                <Post text={this.props.text} />
             </div>
         );
     };
 };
 
-export default PostList;
+const mapStateToProps = state => {
+    return { text: state.dummy };
+};
+
+export default connect(mapStateToProps)(PostList);
