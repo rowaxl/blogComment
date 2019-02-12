@@ -4,7 +4,7 @@ class Post extends Component {
     render() {
         return (
             <div>
-                text: {this.props.text}
+                text: {this.props.comment.text}
             </div>
         );
     };
