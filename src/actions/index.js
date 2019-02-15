@@ -1,4 +1,4 @@
-import { uniq, map } from 'lodash';
+import { chain } from 'lodash';
 import jsonPlaceholder from '../apis/jsonPlaceholders';
 
 export const fetchPosts = () => async dispatch => {
@@ -18,7 +18,10 @@ export const fetchUsers = id =>  async dispatch => {
 
 export const fetchPostAndUser = () => async (dispatch, getState) => {
     await dispatch(fetchPosts());
-    const userIds = uniq(map(getState().posts, 'userId'));
-    
-    Promise.all(userIds.map(id => dispatch(fetchUsers(id))));
+
+    chain(getState().posts)
+        .map('userId')
+        .uniq()
+        .forEach(id => dispatch(fetchUsers(id)))
+        .value();
 }
